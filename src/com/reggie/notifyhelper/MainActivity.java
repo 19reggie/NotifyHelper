@@ -3,11 +3,13 @@ package com.reggie.notifyhelper;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -37,6 +39,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		action_notify_btn.setOnClickListener(this);
 		progress_notify_btn.setOnClickListener(this);
 		start_activity_btn.setOnClickListener(this);
+		Log.d("notifyhelper", "");
 	}
 
 	@Override
@@ -66,7 +69,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			int count = Integer.parseInt(input_notify_editText.getText().toString());
 			NotificationCompat.Builder mBuilder;
 			for (int i = 0; i < count; i++) {
-				mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.notify_launcher)
+				mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.notify_icon)
 						.setContentTitle("My notification").setContentText("Hello World!").setAutoCancel(true);
 				int mNotificationId = i;
 				NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -77,7 +80,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void myNotify() {
 		NotificationCompat.Builder mBuilder;
-		mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.notify_launcher)
+		mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.notify_icon)
 				.setContentTitle("Click me!").setContentText("Goto ResultActivity").setOngoing(true);
 
 		Intent resultIntent = new Intent(this, ResultActivity.class);
@@ -97,15 +100,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		final NotificationManager mNotifyMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mBuilder = new NotificationCompat.Builder(this);
 		mBuilder.setContentTitle("Picture Download").setContentText("Download in progress")
-				.setSmallIcon(R.drawable.notify_launcher);
+				.setSmallIcon(R.drawable.notify_icon);
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				int incr;
 				for (incr = 0; incr <= 100; incr += 5) {
-					// mBuilder.setProgress(100, incr, false);//下载进度间隔变化
-					mBuilder.setProgress(100, incr, true);// 下载进度持续变化
+					mBuilder.setProgress(100, incr, false);// 下载进度间隔变化
+					// mBuilder.setProgress(100, incr, true);// 下载进度持续变化
 					mNotifyMgr.notify(id, mBuilder.build());
 					try {
 						Thread.sleep(5 * 1000);

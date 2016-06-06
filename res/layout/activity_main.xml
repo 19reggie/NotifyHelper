@@ -11,7 +11,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:ems="10" />
+        android:ems="10" 
+        android:hint="输入创建通知的个数"/>
 
     <Button
         android:id="@+id/add_notify_btn"
